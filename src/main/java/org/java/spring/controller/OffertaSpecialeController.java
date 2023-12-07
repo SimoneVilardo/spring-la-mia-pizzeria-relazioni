@@ -61,13 +61,11 @@ public class OffertaSpecialeController {
 	@PostMapping("/pizzas/{pizzaId}/offertaspeciale/edit/{offertaspecialeId}")
 	public String updateOffertaSpeciale(@ModelAttribute PizzaOffertaSpecialeDTO pizzaoffertaspecialeDTO, @PathVariable int pizzaId, @PathVariable int offertaspecialeId) {
 	    
-	    Pizza pizza = pizzaService.findById(pizzaId);
 	    OffertaSpeciale offerta = offertaspecialeService.findById(offertaspecialeId);
 
 	    offerta.setTitolo(pizzaoffertaspecialeDTO.getTitolo());
 	    offerta.setData_inizio(pizzaoffertaspecialeDTO.getData_inizio());
 	    offerta.setData_fine(pizzaoffertaspecialeDTO.getData_fine());
-	    offerta.setPizza(pizza);
 
 	    offertaspecialeService.save(offerta);
 
