@@ -120,6 +120,13 @@ public class Pizza {
 		setIngredienti(Arrays.asList(ingredienti));
 	}
 	
+	public void rimuoviIngrediente(Ingrediente ingrediente) {
+
+        this.ingredienti.remove(ingrediente);
+
+    }
+	
+	
 	@Override
 	public String toString() {
 		
