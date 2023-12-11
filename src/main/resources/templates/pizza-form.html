@@ -51,6 +51,11 @@
 								<input type="number" step="0.01" id="prezzo" th:field="*{prezzo}">
 								<br>		
 								<div th:replace="frags :: errorDiv('prezzo')" />
+								<div th:each="ingrediente : ${ingredienti}" class="mb-3">
+			                        <input type="checkbox" th:id="${'ingrediente-' + ingrediente.id}" th:value="${ingrediente.id}"
+			                            name="ingredienti" th:field="${pizza.ingredienti}">
+			                        <label th:for="${'ingrediente-' + ingrediente.id}">[[${ingrediente.nome}]]</label>
+			                    </div>
 								<input class="btn btn-warning mt-5" type="submit" value="STORE">
 								<div class="col-12 text-center mt-5">
 									<a class="btn btn-warning" th:replace="frags :: home"></a>

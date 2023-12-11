@@ -1,7 +1,10 @@
 package org.java.spring.controller;
 
 import java.util.List;
+
+import org.java.spring.pojo.Ingrediente;
 import org.java.spring.pojo.Pizza;
+import org.java.spring.serv.IngredienteService;
 import org.java.spring.serv.PizzaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +23,9 @@ public class PizzaController {
 
 	@Autowired
 	private PizzaService pizzaService;
+	
+	@Autowired
+	private IngredienteService ingredienteService;
 	
 	@GetMapping
 	public String getPizzas(Model model, @RequestParam(required = false) String q) {
@@ -47,12 +53,15 @@ public class PizzaController {
 	@GetMapping("/pizzas/create")
 	public String createPizza(Model model) {
 		
-		Pizza pizza = new Pizza();
-		
-		model.addAttribute("pizza", pizza);
-		
-		return "pizza-form";
+	    Pizza pizza = new Pizza();
+	    List<Ingrediente> ingredienti = ingredienteService.findAll();
+	    
+	    model.addAttribute("pizza", pizza);
+	    model.addAttribute("ingredienti", ingredienti);
+	    
+	    return "pizza-form";
 	}
+
 	
 	@PostMapping("/pizzas/create")
 	public String storePizza(
@@ -64,14 +73,17 @@ public class PizzaController {
 	}
 
 	@GetMapping("/pizzas/edit/{id}")
-	public String editPizza(Model model,
-			@PathVariable int id) {
+	public String editPizza(Model model, @PathVariable int id) {
 		
-		Pizza pizza = pizzaService.findById(id);
-		model.addAttribute("pizza", pizza);
-		
-		return "pizza-form";
+	    Pizza pizza = pizzaService.findById(id);
+	    List<Ingrediente> ingredienti = ingredienteService.findAll();
+	    
+	    model.addAttribute("pizza", pizza);
+	    model.addAttribute("ingredienti", ingredienti);
+	    
+	    return "pizza-form";
 	}
+
 	
 	@PostMapping("/pizzas/edit/{id}")
 	public String updatePizza(Model model,
